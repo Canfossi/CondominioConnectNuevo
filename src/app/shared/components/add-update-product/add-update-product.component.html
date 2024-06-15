@@ -1,6 +1,6 @@
 
 <!-- que si prodcuto existe  entonce mostrar actualizar prodcuto y si no agregar prodcuto-->
-<app-header [isModal]="true" [title]="product ? 'actualizar Cabañas ': 'agregar Producto'"></app-header>
+<app-header [isModal]="true" [title]="product ? 'Actualizar Reserva ': 'Agregar Reserva'"></app-header>
 <ion-content>
     <form [formGroup]="form" class="ion-padding ion-text-center"(ngSubmit)="submit()"(keypress.enter)="submit">
         <!--========================si existe una imagen================================-->
@@ -26,7 +26,7 @@
         
             [control]= "form.controls.name"
             type="text"
-            label="Nombre"
+            label="tipo de servicio"
             ></app-custom-input>
         
         <div class="validators " *ngIf="form.controls.name.errors && form.controls.name.touched">
@@ -42,7 +42,7 @@
            
             [control]= "form.controls.price"
             type="number"
-            label="Precio"
+            label="Garantia"
             (ionInput)="setNumberInputs()"
             ></app-custom-input>
 
@@ -60,7 +60,7 @@
     
         [control]= "form.controls.soldUnits"
         type="number"
-        label="dias arrendadas"
+        label="Horas solicitadas"
         (ionInput)="setNumberInputs()"
         ></app-custom-input>
 
@@ -76,7 +76,7 @@
          
     
           <ion-button   mode="ios" class="ion-margin" type="submit" [disabled]="form.invalid">
-            {{product ? 'Actualizar Cabaña ': 'agregar Producto'}}
+            {{product ? 'Actualizar Reserva ': 'agregar Reserva'}}
             <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>
           </ion-button>
     

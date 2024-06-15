@@ -43,7 +43,7 @@ export class HomePage implements OnInit {
 
   //==========obtener las ganacias =============
   getProfits(){
-    return this.products.reduce((index, product)=> index + product.price * product.soldUnits, 0);
+    return this.products.reduce((index, product)=> index  + product.price,0);
 
   }
  

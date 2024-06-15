@@ -29,19 +29,20 @@
           <ion-item>
 
               <ion-avatar slot="start">
-                <img [src]="p.image" />
+                <img *ngIf= "user()?.image" [src] = "user()?.image" />
+                <ion-icon *ngIf= "!user()?.image" class="empty-icon" name="person-circle-outline"></ion-icon>
               </ion-avatar>
 
 
             <ion-label>
               <div class="name">{{p.name}}</div>
               <div class="data">
-                <strong>Precio:</strong>{{p.price | currency:'CLP'}} <br>
+                
                 <strong>horas utilizadas: </strong>{{p.soldUnits}}
               </div>
 
               <ion-chip color="primary" mode="ios" outline="true">
-                <ion-label>Garantia:{{p.price * p.soldUnits| currency:'CLP'}}</ion-label>
+                <ion-label>Garantia:{{p.price | currency:'CLP'}}</ion-label>
               </ion-chip>
 
 
