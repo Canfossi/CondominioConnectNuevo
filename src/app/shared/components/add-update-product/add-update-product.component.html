@@ -28,7 +28,7 @@
     <app-custom-input
       [control]="form.controls.fecha"
       type="date"
-      label="fecha solicitada"
+      label="Fecha solicitada"
     ></app-custom-input>
 
     <!-- Validaciones para el campo de nombre -->
@@ -38,10 +38,17 @@
     </div>
 
     <!-- Componente personalizado de entrada para el precio -->
+
+    <ion-select label="Solid select" label-placement="floating" fill="solid">
+      <ion-select-option value="estacionamiento">Apple</ion-select-option>
+      <ion-select-option value="banana">Banana</ion-select-option>
+      <ion-select-option value="orange">Orange</ion-select-option>
+    </ion-select>
+
     <app-custom-input
       [control]="form.controls.price"
       type="number"
-      label="Garantía"
+      label="Total a pagar"
       (ionInput)="setNumberInputs()"
     ></app-custom-input>
 
@@ -51,13 +58,14 @@
       <div *ngIf="form.controls.price.errors?.['min']">El precio mínimo debe ser 0</div>
     </div>
 
-    <!-- Componente personalizado de entrada para las unidades vendidas -->
+    <!-- Componente pcustom-inputersonalizado de entrada para las unidades vendidas -->
     <app-custom-input
       [control]="form.controls.hora"
       type="number"
       label="Horas Solicitadas"
       (ionInput)="setNumberInputs()"
     ></app-custom-input>
+    
 
     <!-- Validaciones para el campo de unidades vendidas -->
     <div class="validators" *ngIf="form.controls.hora.errors && form.controls.hora.touched">

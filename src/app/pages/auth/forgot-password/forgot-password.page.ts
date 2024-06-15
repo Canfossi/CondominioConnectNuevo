@@ -39,7 +39,7 @@ export class ForgotPasswordPage implements OnInit {
         // Muestra un mensaje de éxito
         this.utilsSvc.presentToast({
           message: 'Correo enviado con éxito',
-          duration: 1500,
+          duration: 2500,
           color: 'primary',
           position: 'middle',
           icon: 'mail-outline'
