@@ -1,6 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { title } from 'process';
 import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
@@ -12,35 +11,36 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class MainPage implements OnInit {
 
+  // Array de objetos que define las páginas del menú principal
+  pages = [
+    { title: 'Inicio', url: '/main/home', icon: 'home-outline' },
+    { title: 'Perfil', url: '/main/profile', icon: 'person-outline' },
+  ];
 
-  pages =[ {title:'Inicio',url: '/main/home',icon:'home-outline'},
-  {title:'Perfil',url: '/main/profile',icon:'person-outline'},]
-   
-    router = inject(Router);
-    firebaseSvc=inject(FirebaseService);
-    utilsSvc = inject(UtilsService);
+  // Inyección de dependencias de servicios y router
+  router = inject(Router);
+  firebaseSvc = inject(FirebaseService);
+  utilsSvc = inject(UtilsService);
 
-    currentPath: string='';
-  
+  // Variable para almacenar la ruta actual
+  currentPath: string = '';
+
   constructor() { }
 
   ngOnInit() {
-    this.router.events.subscribe((event:any)=>{
-      if(event?.url) this.currentPath = event.url;
-
-    })
-
+    // Subscripción a los eventos del router para obtener la ruta actual
+    this.router.events.subscribe((event: any) => {
+      if (event?.url) this.currentPath = event.url;
+    });
   }
 
-
-  user(): User
-  {
+  // Función para obtener el usuario desde el almacenamiento local
+  user(): User {
     return this.utilsSvc.getFromLocalStorage('user');
   }
-  //==============cerrar Sesion================
-  signOut(){
 
+  // Función para cerrar sesión
+  signOut() {
     this.firebaseSvc.signOut();
   }
-
 }
