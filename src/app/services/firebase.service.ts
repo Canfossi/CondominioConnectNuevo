@@ -49,7 +49,8 @@ export class FirebaseService {
     return sendPasswordResetEmail(getAuth(),email)
 
    }
-
+//=============enviar email para confirmar reserva====================
+   
   //===============cerrar sesion=====================
    signOut(){
 

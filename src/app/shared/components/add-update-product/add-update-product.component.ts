@@ -19,6 +19,8 @@ export class AddUpdateProductComponent implements OnInit {
     image: new FormControl('', [Validators.required]),  // Control para la imagen del producto
     name: new FormControl('', [Validators.required, Validators.minLength(4)]),  // Control para el nombre del producto
     price: new FormControl(null, [Validators.required, Validators.min(0)]),  // Control para el precio del producto
+    hora: new FormControl(null, [Validators.required, Validators.min(0)]),
+    fecha: new FormControl(null, [Validators.required]),  // Control para la fecha del producto
     soldUnits: new FormControl(null, [Validators.required, Validators.min(0)])  // Control para las unidades vendidas del producto
   });
 

@@ -71,7 +71,7 @@ export class SignUpPage implements OnInit {
       this.firebaseSvc.setDocument(path, this.form.value).then(async res => {
         // Guardar información del usuario en local storage y redirigir
         this.utilsSvc.saveInLocalStorage('user', this.form.value);
-        this.utilsSvc.routeLink('/main/home');
+        this.utilsSvc.routeLink('auth');
         this.form.reset();
       }).catch(error => {
         console.log(error);
