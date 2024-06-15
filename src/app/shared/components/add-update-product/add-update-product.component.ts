@@ -16,7 +16,7 @@ export class AddUpdateProductComponent implements OnInit {
   
   form = new FormGroup({
     id: new FormControl(''),  // Control para el ID del producto (no visible en el formulario)
-    image: new FormControl('', [Validators.required]),  // Control para la imagen del producto
+    //image: new FormControl('', [Validators.required]),  // Control para la imagen del producto
     name: new FormControl('', [Validators.required, Validators.minLength(4)]),  // Control para el nombre del producto
     price: new FormControl(null, [Validators.required, Validators.min(0)]),  // Control para el precio del producto
     hora: new FormControl(null, [Validators.required, Validators.min(0)]),
@@ -35,10 +35,10 @@ export class AddUpdateProductComponent implements OnInit {
   }
 
   // Método para tomar o seleccionar una imagen para el producto
-  async takeImage() {
+  /*async takeImage() {
     const dataUrl = (await this.utilsSvc.takePicture('imagen del producto')).dataUrl;  // Utiliza el servicio para capturar una imagen
     this.form.controls.image.setValue(dataUrl);  // Establece la URL de la imagen en el control 'image' del formulario
-  }
+  }*/
 
   // Método para validar y enviar el formulario
   submit() {
@@ -67,10 +67,10 @@ export class AddUpdateProductComponent implements OnInit {
     await loading.present();  // Presenta el componente de carga
 
     // Sube la imagen a Firebase Storage y obtiene la URL de la imagen
-    let dataUrl = this.form.value.image;
+   // let dataUrl = this.form.value.image;
     let imagePath = `${this.user.uid}/${Date.now()}`;
-    let imageUrl = await this.firebaseSvc.uploadImage(imagePath, dataUrl);
-    this.form.controls.image.setValue(imageUrl);  // Establece la URL de la imagen en el formulario
+    //let imageUrl = await this.firebaseSvc.uploadImage(imagePath, dataUrl);
+    //this.form.controls.image.setValue(imageUrl);  // Establece la URL de la imagen en el formulario
 
     // Elimina el campo 'id' del formulario antes de agregar el producto a Firestore
     delete this.form.value.id;
@@ -79,7 +79,7 @@ export class AddUpdateProductComponent implements OnInit {
     this.firebaseSvc.addDocument(path, this.form.value).then(async res => {
       this.utilsSvc.dismissModal({ success: true });  // Cierra el modal y envía un objeto indicando éxito
       this.utilsSvc.presentToast({  // Muestra un toast indicando éxito
-        message: "producto agregado exitosamente",
+        message: "reserva agregado exitosamente",
         duration: 1500,
         color: 'success',
         position: 'middle',
@@ -107,12 +107,12 @@ export class AddUpdateProductComponent implements OnInit {
     await loading.present();  // Presenta el componente de carga
 
     // Verifica si la imagen ha cambiado y la actualiza en Firebase Storage si es necesario
-    if (this.form.value.image !== this.product.image) {
+   /* if (this.form.value.image !== this.product.image) {
       let dataUrl = this.form.value.image;
       let imagePath = await this.firebaseSvc.getfilePath(this.product.image);
       let imageUrl = await this.firebaseSvc.uploadImage(imagePath, dataUrl);
       this.form.controls.image.setValue(imageUrl);  // Establece la URL de la nueva imagen en el formulario
-    }
+    }*/
 
     // Elimina el campo 'id' del formulario antes de actualizar el producto en Firestore
     delete this.form.value.id;

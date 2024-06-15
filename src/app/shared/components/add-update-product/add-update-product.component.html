@@ -5,19 +5,7 @@
 <ion-content>
   <!-- Formulario que utiliza formGroup para la gestión de formularios en Angular -->
   <form [formGroup]="form" class="ion-padding ion-text-center" (ngSubmit)="submit()" (keypress.enter)="submit()">
-    <!-- Avatar para mostrar la imagen del producto si existe -->
-    <ion-avatar *ngIf="form.value.image">
-      <img [src]="form.value.image" />
-    </ion-avatar>
-    <!-- Icono alternativo si no hay imagen seleccionada -->
-    <ion-icon class="image-icon" *ngIf="!form.value.image" name="image-outline"></ion-icon>
-
-    <br>
-    <!-- Botón para tomar o seleccionar una foto, llama a la función takeImage() -->
-    <ion-button (click)="takeImage()" mode="ios" size="small" shape="round">
-      Tomar/Seleccionar
-    </ion-button>
-
+    
     <!-- Componente personalizado de entrada para el nombre del producto -->
     <app-custom-input
       [control]="form.controls.name"
