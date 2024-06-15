@@ -28,10 +28,9 @@
         <ion-item-sliding class="product-item" *ngFor="let p of products">
           <ion-item>
 
-              <ion-avatar slot="start">
-                <img *ngIf= "user()?.image" [src] = "user()?.image" />
-                <ion-icon *ngIf= "!user()?.image" class="empty-icon" name="person-circle-outline"></ion-icon>
-              </ion-avatar>
+            <ion-avatar slot="start">
+              <img [src]="p.image" />
+            </ion-avatar>
 
 
             <ion-label>
@@ -42,7 +41,7 @@
               </div>
 
               <ion-chip color="primary" mode="ios" outline="true">
-                <ion-label>horas solicitadas:{{p.soldUnits}}</ion-label>
+                <ion-label>horas solicitadas:{{p.hora}}</ion-label>
               </ion-chip>
                 <br>
               <ion-chip color="primary" mode="ios" outline="true">
