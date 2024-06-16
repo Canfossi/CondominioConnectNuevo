@@ -68,7 +68,7 @@ export class AddUpdateProductComponent implements OnInit {
 
     // Sube la imagen a Firebase Storage y obtiene la URL de la imagen
    // let dataUrl = this.form.value.image;
-    let imagePath = `${this.user.uid}/${Date.now()}`;
+    //let imagePath = `${this.user.uid}/${Date.now()}`;
     //let imageUrl = await this.firebaseSvc.uploadImage(imagePath, dataUrl);
     //this.form.controls.image.setValue(imageUrl);  // Establece la URL de la imagen en el formulario
 
@@ -121,8 +121,8 @@ export class AddUpdateProductComponent implements OnInit {
     this.firebaseSvc.updateDocument(path, this.form.value).then(async res => {
       this.utilsSvc.dismissModal({ success: true });  // Cierra el modal y envía un objeto indicando éxito
       this.utilsSvc.presentToast({  // Muestra un toast indicando éxito
-        message: "producto actualizado exitosamente",
-        duration: 1500,
+        message: "Reserva actualizado exitosamente",
+        duration: 2500,
         color: 'success',
         position: 'middle',
         icon: 'checkmark-circle-outline'
