@@ -18,7 +18,7 @@
       <!--============================================-->
       <div>
         <h5>{{ getProfits()| currency:'CLP'}}</h5>
-        <p>Garantia</p>
+        <p>Total a pagar</p>
       </div>
 
     </ion-card>
@@ -28,24 +28,30 @@
         <ion-item-sliding class="product-item" *ngFor="let p of products">
           <ion-item>
 
-              <ion-avatar slot="start">
-                <img [src]="p.image" />
-              </ion-avatar>
+            <ion-avatar slot="start">
+              <img src="../../../../assets/img/usuario.png" alt="">
+             </ion-avatar>
 
 
             <ion-label>
               <div class="name">{{p.name}}</div>
               <div class="data">
-                <strong>Precio:</strong>{{p.price | currency:'CLP'}} <br>
-                <strong>horas utilizadas: </strong>{{p.soldUnits}}
+                
+               
               </div>
 
               <ion-chip color="primary" mode="ios" outline="true">
-                <ion-label>Garantia:{{p.price * p.soldUnits| currency:'CLP'}}</ion-label>
+                <ion-label>horas solicitadas:{{p.hora}}</ion-label>
+              </ion-chip>
+                <br>
+              <ion-chip color="primary" mode="ios" outline="true">
+                <ion-label>Total a pagar:{{p.price | currency:'CLP'}}</ion-label>
               </ion-chip>
 
-
-
+              <ion-chip color="primary" mode="ios" outline="true">
+                <ion-label>Fecha:{{p.fecha | date:'dd/MM/yyyy' }}</ion-label>
+              </ion-chip>
+              
             </ion-label>
           </ion-item>
 
@@ -99,7 +105,7 @@
 
       <div  *ngIf="!loading && !products.length" class="empty">
         <ion-icon  name="shield-outline"></ion-icon>
-        <h3>no hay producto  disponible</h3>
+        <h3>no hay Reserva disponible</h3>
 
       </div>
     

@@ -1,10 +1,8 @@
-import { Component, OnInit,inject } from '@angular/core';
-import { FormControl,  FormGroup,  Validators } from '@angular/forms';
-import { log } from 'console';
+import { Component, OnInit, inject } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
-
 
 @Component({
   selector: 'app-auth',
@@ -13,102 +11,98 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class AuthPage implements OnInit {
 
-
+  // FormGroup para manejar el formulario de login
   form = new FormGroup({
-    email:new FormControl('',[Validators.required,Validators.email]),
-    password:new FormControl('',[Validators.required]),
-  })
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required]),
+  });
 
-  firebaseSvc = inject (FirebaseService);
-  utilsSvc=inject(UtilsService)
+  // Inyección de servicios FirebaseService y UtilsService
+  firebaseSvc = inject(FirebaseService);
+  utilsSvc = inject(UtilsService);
 
   ngOnInit() {
+    // Método del ciclo de vida OnInit, se ejecuta al iniciar el componente
   }
 
-//======================================================================
-  async submit(){
+  //======================================================================
+  // Método asincrónico para manejar el envío del formulario de login
+  async submit() {
+    if (this.form.valid) { // Verifica si el formulario es válido
 
-    if (this.form.valid) {
+      const loading = await this.utilsSvc.loading(); // Muestra un loader mientras se procesa la petición
+      await loading.present(); // Muestra el loader
 
-      const loading=await this.utilsSvc.loading();
-      await loading.present();
+      // Llama al método de autenticación signIn del servicio FirebaseService
+      this.firebaseSvc.signIn(this.form.value as User).then(res => {
+        // En caso de éxito, llama a la función para obtener información del usuario
+        this.getUserInfo(res.user.uid);
+      }).catch(error => {
+        console.log(error); // Registra errores en la consola
 
-    this.firebaseSvc.signIn(this.form.value as User).then(res=>{
-
-     
-      this.getUserInfo(res.user.uid);
-
-    }).catch(error=>{
-      console.log(error)
-      
-      this.utilsSvc.presentToast({
-
+        // Muestra un toast con el mensaje de error
+        this.utilsSvc.presentToast({
           message: error.message,
           duration: 2500,
-          color:'primary',
-          position:'middle',
-          icon:'alert-circle-outline'
-      })
-
-
-      }).finally(()=>{
-        loading.dismiss();
-      })
+          color: 'primary',
+          position: 'middle',
+          icon: 'alert-circle-outline'
+        });
+      }).finally(() => {
+        loading.dismiss(); // Descarta el loader después de completar la operación
+      });
     }
-    
   }
-//===============================================================
-  async getUserInfo(uid:string){
+  //======================================================================
 
-    if (this.form.valid) {
+  // Método asincrónico para obtener información del usuario
+  async getUserInfo(uid: string) {
+    if (this.form.valid) { // Verifica si el formulario es válido
 
-      const loading=await this.utilsSvc.loading();
-      await loading.present();
+      const loading = await this.utilsSvc.loading(); // Muestra un loader mientras se procesa la petición
+      await loading.present(); // Muestra el loader
 
-        let path=`users/${uid}`
-        delete this.form.value.password;
+      let path = `users/${uid}`; // Construye la ruta para obtener información del usuario en Firebase
+      delete this.form.value.password; // Elimina temporalmente el campo de contraseña del formulario
 
-    this.firebaseSvc.getDocument(path).then((user:User)=>{
-      console.log(user);
-      
-      this.utilsSvc.saveInLocalStorage('user',user);
-      this.utilsSvc.routeLink('/main/home');
-      this.form.reset();
+      // Llama al método para obtener el documento de usuario desde Firebase
+      this.firebaseSvc.getDocument(path).then((user: User) => {
+        console.log(user); // Muestra el usuario en la consola
 
-      this.utilsSvc.presentToast({
+        // Guarda la información del usuario en el almacenamiento local
+        this.utilsSvc.saveInLocalStorage('user', user);
 
-        message: `te damos la Bienvenida ${user.name}`,
-        duration: 2500,
-        color:'primary',
-        position:'middle',
-        icon:'person-circle-outline'
-    })
+        // Redirige al usuario a la página principal después de iniciar sesión
+        this.utilsSvc.routeLink('/main/home');
 
+        // Reinicia el formulario después de completar el proceso de inicio de sesión
+        this.form.reset();
 
-      /*await this.firebaseSvc.updateUser(this.form.value.name);
-      console.log(res);*/
+        // Muestra un toast de bienvenida al usuario
+        this.utilsSvc.presentToast({
+          message: `Te damos la bienvenida ${user.name}`,
+          duration: 2500,
+          color: 'primary',
+          position: 'middle',
+          icon: 'person-circle-outline'
+        });
 
-    }).catch(error=>{
-      console.log(error)
+      }).catch(error => {
+        console.log(error); // Registra errores en la consola
 
-      this.utilsSvc.presentToast({
-
+        // Muestra un toast con el mensaje de error
+        this.utilsSvc.presentToast({
           message: error.message,
           duration: 2500,
-          color:'primary',
-          position:'middle',
-          icon:'alert-circle-outline'
-      })
+          color: 'primary',
+          position: 'middle',
+          icon: 'alert-circle-outline'
+        });
 
-
-      }).finally(()=>{
-        loading.dismiss();
-      })
+      }).finally(() => {
+        loading.dismiss(); // Descarta el loader después de completar la operación
+      });
     }
-    
   }
-
-
-
 
 }

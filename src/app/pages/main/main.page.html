@@ -1,35 +1,42 @@
-<ion-menu contentId="menu-content" menuId="menu-content" side="start" >
+<ion-menu contentId="menu-content" menuId="menu-content" side="start">
 
-<app-header title="Menu"></app-header>
+  <!-- Encabezado del menú -->
+  <app-header title="Menu"></app-header>
 
-
+  <!-- Contenido del menú -->
   <ion-content class="ion-text-center">
 
-
+    <!-- Avatar del usuario -->
+    <ion-avatar>
+      <img *ngIf="user()?.image" [src]="user()?.image" />
+      <ion-icon *ngIf="!user()?.image" class="empty-icon" name="person-circle-outline"></ion-icon>
+    </ion-avatar>
     
- <ion-avatar>
-    <img *ngIf= "user()?.image" [src] = "user()?.image" />
-    <ion-icon *ngIf= "!user()?.image" class="empty-icon" name="person-circle-outline"></ion-icon>
-  </ion-avatar>
-      <h4>{{user()?.name}}</h4>
-      
+    <!-- Nombre del usuario -->
+    <h4>{{ user()?.name }}</h4>
+
+    <!-- Enlaces de navegación del menú -->
     <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
-      <ion-item  [ngClass]="{'active': currentPath ===p.url}" [routerLink]="p.url" routerrouterDirection=rootdetail>
+      <ion-item [ngClass]="{ 'active': currentPath === p.url }" [routerLink]="p.url" routerDirection="root">
         <ion-icon slot="start" [name]="p.icon"></ion-icon>
-        <ion-label>{{p.title}}</ion-label>
+        <ion-label>{{ p.title }}</ion-label>
       </ion-item>
     </ion-menu-toggle>
-    
+
   </ion-content>
 
+  <!-- Pie de página del menú -->
   <ion-footer class="ion-no-border safe-p-bottom">
-    <ion-menu-toggle auto-hide="false" >
-      <ion-item (click)="signOut()"lines="none">
+    <ion-menu-toggle auto-hide="false">
+      <!-- Elemento para cerrar sesión -->
+      <ion-item (click)="signOut()" lines="none">
         <ion-icon slot="start" name="log-out-outline"></ion-icon>
-        <ion-label>Cerrar Sesion</ion-label>
+        <ion-label>Cerrar Sesión</ion-label>
       </ion-item>
     </ion-menu-toggle>
   </ion-footer>
 
 </ion-menu>
-  <ion-router-outlet id="menu-content" main></ion-router-outlet>
+
+<!-- Salida del menú -->
+<ion-router-outlet id="menu-content" main></ion-router-outlet>

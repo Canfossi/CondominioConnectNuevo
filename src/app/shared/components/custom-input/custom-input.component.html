@@ -1,20 +1,21 @@
+<!-- custom-input.component.html -->
+
 <ion-item class="custom-input" lines="none">
-  <ion-icon  color="primary" *ngIf="icon" slot="start" [name]="icon"></ion-icon>
+  <!-- Icono inicial si está definido -->
+  <ion-icon color="primary" *ngIf="icon" slot="start" [name]="icon"></ion-icon>
 
-<!---aqui esta el error  [formControl]= "control"-->
-  
-<ion-input 
-[type]= "type" 
-[autocomplete]= "autoComplete"
-[label]= "label"
-[formControl]= "control"
-label-Placement="floating"
-></ion-input>
+  <!-- Entrada de texto -->
+  <ion-input 
+    [type]="type"                
+    [autocomplete]="autoComplete"
+    [label]="label"              
+    [formControl]="control"      
+    labelPlacement="floating">   
+  </ion-input>
 
-
-
-<ion-button  *ngIf="isPassword" (click)="showOrHidePassword()" slot="end"  fill="clear" shape="round">
-<ion-icon slot="icon-only" [name]= "hide ? 'eye-outline': 'eye-off-outline'"></ion-icon>
-</ion-button>
-
+  <!-- Botón para mostrar u ocultar contraseña -->
+  <ion-button *ngIf="isPassword" (click)="showOrHidePassword()" slot="end" fill="clear" shape="round">
+    <ion-icon slot="icon-only" [name]="hide ? 'eye-outline' : 'eye-off-outline'"></ion-icon>
+  </ion-button>
 </ion-item>
+
